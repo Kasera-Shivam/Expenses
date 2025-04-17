@@ -26,21 +26,23 @@ export const addTransaction =
     }
   };
 
-export const fetchTransactions = () => async (dispatch) => {
-  try {
-    dispatch({ type: "FTR" });
-    const { data } = await axios.get(
-      `${config.BACKEND_URL}/transaction/fetch/all`,
-      config.GET_CONFIG,
-    );
-    dispatch({ type: "FTS", payload: data });
-  } catch (error) {
-    dispatch({
-      type: "FTF",
-      payload: error.response ? error.response.data.message : error.message,
-    });
-  }
-};
+export const fetchTransactions =
+  (fromDate = "", toDate = "", type = "") =>
+  async (dispatch) => {
+    try {
+      dispatch({ type: "FTR" });
+      const { data } = await axios.get(
+        `${config.BACKEND_URL}/transaction/fetch/all?fromDate=${fromDate}&toDate=${toDate}&type=${type}`,
+        config.GET_CONFIG,
+      );
+      dispatch({ type: "FTS", payload: data });
+    } catch (error) {
+      dispatch({
+        type: "FTF",
+        payload: error.response ? error.response.data.message : error.message,
+      });
+    }
+  };
 
 export const deleteTransaction = (id) => async (dispatch) => {
   try {

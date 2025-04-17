@@ -5,7 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchMyAccount } from "@/redux/actions/user.action";
 import apiConfig from "@/api.config";
 
-const PrimaryButton = ({ type = "button", children, loading, onClick }) => {
+const PrimaryButton = ({
+  type = "button",
+  children,
+  loading,
+  onClick,
+  className,
+}) => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.user);
 
@@ -19,7 +25,7 @@ const PrimaryButton = ({ type = "button", children, loading, onClick }) => {
       type={user ? type : "button"}
       disabled={loading}
       onClick={!user ? handleLogin : onClick}
-      className={"bg-gradient-to-r from-green-400 to-blue-500"}
+      className={`bg-gradient-to-r from-green-400 to-blue-500 ${className}`}
     >
       {loading ? <Loader2 className="animate-spin" /> : children}
     </Button>

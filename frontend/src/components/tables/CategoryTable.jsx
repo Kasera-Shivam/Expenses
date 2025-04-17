@@ -11,14 +11,9 @@ import {
   deleteCategory,
   fetchCategories,
 } from "@/redux/actions/category.action";
-import {
-  deleteTransaction,
-  fetchTransactions,
-} from "@/redux/actions/transaction.action";
 import { Delete, Edit } from "lucide-react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UpdateCategory from "../update/UpdateCategory";
 
 const CategoryTable = () => {
   const [select, setSelect] = React.useState("");

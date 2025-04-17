@@ -13,6 +13,7 @@ import Dashboard from "./pages/transaction/Dashboard";
 import AuthRoute from "./components/middleware/AuthRoute";
 import Categories from "./pages/category/Categories";
 import Profile from "./pages/profile/Profile";
+import NotFound from "./pages/notfound/NotFound";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -107,8 +108,10 @@ const App = () => {
             </AuthRoute>
           }
         />
+
+        <Route path="/*" element={<NotFound />} />
       </Routes>
-      <Toaster position="top-left" />
+      <Toaster position="bottom-center" />
     </React.Fragment>
   );
 };

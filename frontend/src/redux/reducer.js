@@ -31,7 +31,7 @@ const userReducer = createReducer(
 );
 
 const categoryReducer = createReducer(
-  { loading: true, categories: [], error: null, message: null },
+  { loading: true, category: null, categories: [], error: null, message: null },
   (builder) => {
     builder
       .addCase("ACR", (state) => {
@@ -54,6 +54,31 @@ const categoryReducer = createReducer(
         state.categories = action.payload.categories;
       })
       .addCase("FCF", (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      .addCase("FOCR", (state) => {
+        state.loading = true;
+      })
+      .addCase("FOCS", (state, action) => {
+        state.loading = false;
+        state.category = action.payload;
+      })
+      .addCase("FOCF", (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      .addCase("UCR", (state) => {
+        state.loading = true;
+      })
+      .addCase("UCS", (state, action) => {
+        state.loading = false;
+        state.category = action.payload.category;
+        state.message = action.payload.message;
+      })
+      .addCase("UCF", (state, action) => {
         state.loading = false;
         state.error = action.payload;
       })

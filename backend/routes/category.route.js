@@ -26,6 +26,10 @@ router
   );
 
 router
+  .route("/fetch/:category_id")
+  .get(middleware.isAuthenticated, categoryController.fetchCategory);
+
+router
   .route("/:category_id/delete")
   .delete(middleware.isAuthenticated, categoryController.deleteCategory);
 

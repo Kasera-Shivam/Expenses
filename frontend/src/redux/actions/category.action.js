@@ -36,6 +36,39 @@ export const fetchCategories = () => async (dispatch) => {
   }
 };
 
+export const fetchCategory = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: "FOCR" });
+    const { data } = await axios.delete(
+      `${config.BACKEND_URL}/category/fetch/${id}`,
+      config.GET_CONFIG,
+    );
+    dispatch({ type: "FOCS", payload: data.category });
+  } catch (error) {
+    dispatch({
+      type: "FOCF",
+      payload: error.response ? error.response.data.message : error.message,
+    });
+  }
+};
+
+export const updateCategory = (id, type, name) => async (dispatch) => {
+  try {
+    dispatch({ type: "UCR" });
+    const { data } = await axios.put(
+      `${config.BACKEND_URL}/category/${id}/update`,
+      { type, name },
+      config.POST_CONFIG,
+    );
+    dispatch({ type: "UCS", payload: data });
+  } catch (error) {
+    dispatch({
+      type: "UCF",
+      payload: error.response ? error.response.data.message : error.message,
+    });
+  }
+};
+
 export const deleteCategory = (id) => async (dispatch) => {
   try {
     dispatch({ type: "DCR" });

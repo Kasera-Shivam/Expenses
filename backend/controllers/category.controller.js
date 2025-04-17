@@ -43,6 +43,21 @@ const fetchMyCategories = async (req, res) => {
   }
 };
 
+const fetchCategory = async (req, res) => {
+  try {
+    const user = req.user;
+    const { category_id } = req.params;
+    if (!mongoose.isValidObjectId(category_id))
+      return utils.SendError(res, 400, "Invalid category id.");
+    const category = await Category.findById(category_id);
+    if (!category || category.user.toString() !== user._id.toString())
+      return utils.SendError(res, 404, "Category not found.");
+    return utils.SendSuccess(res, 200, null, { category });
+  } catch (error) {
+    return utils.SendError(res, 500, null, error);
+  }
+};
+
 const updateCategory = async (req, res) => {
   const user = req.user;
   const { category_id } = req.params;
@@ -107,6 +122,7 @@ const deleteCategory = async (req, res) => {
 export default {
   addCategory,
   fetchMyCategories,
+  fetchCategory,
   updateCategory,
   deleteCategory,
 };
